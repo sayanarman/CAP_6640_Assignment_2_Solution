@@ -1,0 +1,164 @@
+\documentclass[12pt]{article}
+\usepackage{url,hyperref}
+\usepackage{times}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, xparse}
+
+\begin{document}
+
+\noindent \textbf{CAP 6640 -- Natural Language Processing\hspace*{\fill}Spring 2025}\\
+\noindent{\bf Homework \#2} \hfill Due date: January 31, 2025.
+
+
+
+\begin{description}
+  \item[Problem 1:] %Describe, in your own words, how Artificial Neural Networks (ANN) function and how incorporating multiple layers within an ANN contributes to improved accuracy.
+  
+  Artificial Neural Networks, or ANNs in short, are a type of computational learning model that are inspired by how the human brain functions. 
+  ANNs are composed of computational unit of nodes named as neurons, organized into layers that process the input data and generate an output for tasks such as predictions and classifications.
+  First component of the ANN is the input layer, which receives the input data related to the each word vector. Each neuron in this layer represents a feature of the input data.
+  The hidden layers, which are located between the input and output layers, contain neurons that apply transformations to relationships by computing a weighted sum of input data 
+  and passing the result through an activation function to introduce non-linearity. By incorporating multiple hidden layers, the model can learn complex patterns in the data.
+  As a last layer, the output layer generates the final output of the model, which can be used for making predictions or classifications.
+  How ANNs do the learning process is by adjusting the weights of the connections between the nodes in the network to minimize the error between the predicted output and the actual output.
+
+  The incorporation of multiple layers within an ANN contributes to improved accuracy by allowing the model to learn complex representations in the data.
+  Each hidden layer in the network learns different features of the data, and by stacking multiple layers, the model can learn hierarchical representations of the data.
+  Each layer learns increasingly abstract representations. For example, in the context of natural language processing, the first hidden layer might learn simple features such as
+  word frequencies, while the second hidden layer might learn more complex features such as word co-occurrences. By learning these hierarchical representations, the model can capture
+  complex patterns in the data and make more accurate predictions or classifications.
+  Furthermore, adding more layers with non-linear activation functions allows the model to capture highly complex relationships in the data that would be difficult to learn 
+  with a simple, and shallow network. In the context of language processing, this can help the model learn the relationships or dependencies between words and phrases.
+  Lastly, instead of memorizing the raw data, the model can learn meaningful high-level features to generalize from the data, which can improve its performance on unseen data.
+  
+  \pagebreak
+  
+  \item[Problem 2:] %Provide a mathematical explanation of ANN, including both matrix-based and summation-based representations.
+
+  \begin{enumerate}
+    \item \textbf{Summation-based representation}:
+    For a single neuron in an Artificial Neural Network (ANN), the output of the neuron can be represented mathematically as:
+
+    \begin{center}
+      $\displaystyle{z = \sum_{i=1}^{n} w_i x_i + b}$
+    \end{center}
+
+    where $z$ is the weighted sum of the inputs features $x_i$ with corresponding weights $w_i$, $b$ is the bias term, and $n$ is the number of input features 
+    used in this neuron calculation.
+
+    The output of the neuron is then passed through an activation function, which introduces non-linearity to the model:
+
+    \begin{center}
+      $\displaystyle{a = f(z) = f(\sum_{i=1}^{n} w_i x_i + b)}$
+    \end{center}
+    
+    where $a$ is the final output of the neuron after passing through the activation function $f$.
+
+    If we apply this logic for a single layer with $m$ neurons in an ANN, each neuron computes its output as:
+
+    \begin{center}
+      $\displaystyle{z_j = \sum_{i=1}^{n} w_{ji} x_i + b_j}$ for $j = 1, 2, ..., m$
+    \end{center}
+
+    where $z_j$ is the weighted sum of the inputs features $x_i$ with corresponding weights $w_{ji}$ and bias term $b_j$ for the $j$-th neuron in the layer.
+
+    The output of the $j$-th neuron is then passed through an activation function:
+
+    \begin{center}
+      $\displaystyle{a_j = f(z_j) = f(\sum_{i=1}^{n} w_{ji} x_i + b_j)}$ for $j = 1, 2, ..., m$
+    \end{center}
+
+    In summary, the summation-based representation expresses the ANN in terms of individual neurons and connections. 
+
+    \item \textbf{Matrix-based representation}:
+    
+    The above summation-based representation can be represented in matrix form for a layer of neurons in an ANN. Let's denote the input features as a vector $X$ of size $n$.
+
+    \begin{center}
+      $\displaystyle{X = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix}}$
+    \end{center}
+
+    The weights of the connections between the input features and the neurons in the layer can be represented as a weight matrix $W$ of size $m \times n$, where $m$ is the number of neurons in the layer.
+
+    \begin{center}
+      $\displaystyle{W = \begin{bmatrix} w_{11} & w_{12} & \cdots & w_{1n} \\ w_{21} & w_{22} & \cdots & w_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ w_{m1} & w_{m2} & \cdots & w_{mn} \end{bmatrix}}$
+    \end{center}
+
+    The bias terms for each neuron can be represented as a bias vector $B$ of size $m$.
+
+    \begin{center}
+      $\displaystyle{B = \begin{bmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{bmatrix}}$
+    \end{center}
+
+    By combining all these, the weighted sum of the inputs for all neurons in the layer can be computed as a matrix multiplication as
+
+    \begin{center}
+      $\displaystyle{Z = W \cdot X + B}$
+    \end{center}
+
+    As the last step, by applying the activation function element-wise to the matrix $Z$, we can compute the output of all activated neurons in the layer as
+
+    \begin{center}
+      $\displaystyle{A = f(Z) = f([z_1, z_2, \hdots , z_n]) = [f(z_1), f(z_2), \hdots , f(z_n)]}$
+    \end{center}
+
+    where $A$ is the output of the layer after passing through the activation function $f$. 
+
+    In summary, this matrix-based representation makes computations more efficient by leveraging vectorized operations.
+
+  \end{enumerate}
+
+  \pagebreak
+
+  \item[Problem 3:] Discuss the challenges associated with named entities and explain how window classification addresses these challenges.
+  
+  Write Answer
+
+  \pagebreak
+
+  \item[Problem 4:] Describe the backpropagation algorithm, both conceptually in your own words and mathematically.
+  
+  Write Answer
+
+  \pagebreak
+
+  \item[Problem 5:] Explain the necessity of structures for analyzing language dependencies.
+  
+  Write Answer
+
+  \pagebreak
+
+  \item[Problem 6:] Describe the stochastic gradient descent algorithm, how it works, and the types of problems it aims to address within the context of the gradient descent algorithm.
+  
+  Write Answer
+
+  \pagebreak
+
+  \item[Problem 7:] Explain the skip-gram model with negative sampling and how it operates.
+  
+  Write Answer
+
+  \pagebreak
+
+  \item[Problem 8:] Discuss the two approaches for evaluating word embeddings (vectors), namely intrinsic and extrinsic evaluations, along with their respective advantages and disadvantages.
+  
+  Write Answer
+
+  \pagebreak
+
+  \item[Problem 9:] Define word sense, its purpose, and how it is used in practical applications.
+  
+  Write Answer
+
+  \pagebreak
+
+  \item[Problem 10:] Explain the max-margin loss function in the context of binary classification for Named Entity Recognition (NER) location identification.
+  
+  Write Answer
+
+  \pagebreak
+  
+\end{description}
+
+\end{document}
