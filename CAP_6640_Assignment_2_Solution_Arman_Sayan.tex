@@ -10,10 +10,8 @@
 \noindent \textbf{CAP 6640 -- Natural Language Processing\hspace*{\fill}Spring 2025}\\
 \noindent{\bf Homework \#2} \hfill Due date: January 31, 2025.
 
-
-
 \begin{description}
-  \item[Problem 1:] %Describe, in your own words, how Artificial Neural Networks (ANN) function and how incorporating multiple layers within an ANN contributes to improved accuracy.
+  \item[Problem 1: ] \hfill %Describe, in your own words, how Artificial Neural Networks (ANN) function and how incorporating multiple layers within an ANN contributes to improved accuracy.
   
   Artificial Neural Networks, or ANNs in short, are a type of computational learning model that are inspired by how the human brain functions. 
   ANNs are composed of computational unit of nodes named as neurons, organized into layers that process the input data and generate an output for tasks such as predictions and classifications.
@@ -34,7 +32,7 @@
   
   \pagebreak
   
-  \item[Problem 2:] %Provide a mathematical explanation of ANN, including both matrix-based and summation-based representations.
+  \item[Problem 2:] \hfill %Provide a mathematical explanation of ANN, including both matrix-based and summation-based representations.
 
   \begin{enumerate}
     \item \textbf{Summation-based representation}:
@@ -100,7 +98,7 @@
     As the last step, by applying the activation function element-wise to the matrix $Z$, we can compute the output of all activated neurons in the layer as
 
     \begin{center}
-      $\displaystyle{A = f(Z) = f([z_1, z_2, \hdots , z_n]) = [f(z_1), f(z_2), \hdots , f(z_n)]}$
+      $\displaystyle{A = f(Z) = f([z_1, z_2, \cdots , z_n]) = [f(z_1), f(z_2), \cdots , f(z_n)]}$
     \end{center}
 
     where $A$ is the output of the layer after passing through the activation function $f$. 
@@ -111,49 +109,74 @@
 
   \pagebreak
 
-  \item[Problem 3:] Discuss the challenges associated with named entities and explain how window classification addresses these challenges.
+  \item[Problem 3:] \hfill %Discuss the challenges associated with named entities and explain how window classification addresses these challenges.
+  
+  Named Entity Recognition, or NER in short, is the task of identifying and classifying named entities in text into predefined categories such as person names, 
+  organization names, locations, etc.
+  However, NER faces several challenges that makes it a difficult task. Some of the challenges associated with named entities are:
+
+  \begin{enumerate}
+    \item \textbf{Ambiguity in Entities}: Named entities can be ambiguous, meaning that the same word can refer to different entities based on the context. 
+    For example, the word "Acibadem" in Turkish can refer to a dessert, a neighbourhood in Istanbul, or the healthcare group organization.
+
+    \item \textbf{Handling Unknown or Emerging Entities}: NER systems need to be able to handle unknown or emerging entities that are not present in the training data.
+    For instance, probably a system trained on before 2020 data would not recognize the entity "COVID-19" as a disease and classify it as unknown word or a generic word. 
+
+    \item \textbf{Ambiguity}: Named entities can be ambiguous, meaning that it is not obvious to predict whether it is an entity or just a general term used in the text.
+    To give an example, Open AI, can be considered as an entity, but "open" and "AI" can be considered as separate words and can be interpreted as open-source AI.
+    
+    \item \textbf{Complex Named Entities and the Boundries}: Named entities can be complex and composed of multiple words which makes it difficult to identify the boundaries of the entity.
+    To give an instance, "Washington Post Sanctions" can be considered as a news organization entity, but also can be composed of multiple components such as administration in Washington D.C., etc.
+  \end{enumerate}
+
+  To address these challenges, window classification technique can be used in NER. Window classification involves dividing the text into fixed-size windows
+  to capture the context around each word. By considering the context around each word, the model can better understand the meaning of the word and disambiguate named entities.
+
+  To illustrate, consider the sentence "Jordan Thompson traveled to Jordan.". In this sentence, the word "Jordan" appears twice, but has different meanings.
+  By using a window classification approach, the model can consider the context around each occurrence of "Jordan" to determine whether it refers to a person's name or a location.
+  However, we might fail to capture the positional information and contextual nuances of the entities in the text if we use a very simple averaging method for the word vectors in the context window.
+  To address this issue, we can use more sophisticated methods such as softmax classifier to calculate the probability of each word in the context window to be the entity of interest appearing together.
+  By using window classification, the model can better handle ambiguity, unknown entities, and complex named entities by considering the context around each word.
+
+  \pagebreak
+
+  \item[Problem 4:] \hfill %Describe the backpropagation algorithm, both conceptually in your own words and mathematically.
   
   Write Answer
 
   \pagebreak
 
-  \item[Problem 4:] Describe the backpropagation algorithm, both conceptually in your own words and mathematically.
+  \item[Problem 5:] \hfill %Explain the necessity of structures for analyzing language dependencies.
   
   Write Answer
 
   \pagebreak
 
-  \item[Problem 5:] Explain the necessity of structures for analyzing language dependencies.
+  \item[Problem 6:] \hfill %Describe the stochastic gradient descent algorithm, how it works, and the types of problems it aims to address within the context of the gradient descent algorithm.
   
   Write Answer
 
   \pagebreak
 
-  \item[Problem 6:] Describe the stochastic gradient descent algorithm, how it works, and the types of problems it aims to address within the context of the gradient descent algorithm.
+  \item[Problem 7:] \hfill %Explain the skip-gram model with negative sampling and how it operates.
   
   Write Answer
 
   \pagebreak
 
-  \item[Problem 7:] Explain the skip-gram model with negative sampling and how it operates.
+  \item[Problem 8:] \hfill %Discuss the two approaches for evaluating word embeddings (vectors), namely intrinsic and extrinsic evaluations, along with their respective advantages and disadvantages.
   
   Write Answer
 
   \pagebreak
 
-  \item[Problem 8:] Discuss the two approaches for evaluating word embeddings (vectors), namely intrinsic and extrinsic evaluations, along with their respective advantages and disadvantages.
+  \item[Problem 9:] \hfill %Define word sense, its purpose, and how it is used in practical applications.
   
   Write Answer
 
   \pagebreak
 
-  \item[Problem 9:] Define word sense, its purpose, and how it is used in practical applications.
-  
-  Write Answer
-
-  \pagebreak
-
-  \item[Problem 10:] Explain the max-margin loss function in the context of binary classification for Named Entity Recognition (NER) location identification.
+  \item[Problem 10:] \hfill %Explain the max-margin loss function in the context of binary classification for Named Entity Recognition (NER) location identification.
   
   Write Answer
 
