@@ -5,7 +5,18 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, xparse}
 \usepackage{derivative}
-\usepackage[bb=px]{mathalfa} 
+\usepackage[bb=px]{mathalfa}
+\usepackage{graphicx}
+\usepackage{caption}
+\DeclareCaptionFormat{citation}{%
+  \ifx\captioncitation\relax\relax\else
+    \captioncitation\par
+  \fi
+  #1#2#3\par}
+\newcommand*\setcaptioncitation[1]{\def\captioncitation{\textit{Source:}~#1}}
+\let\captioncitation\relax
+\captionsetup{format=citation,justification=centering}
+\graphicspath{ {./images/} }
 
 \begin{document}
 
@@ -151,7 +162,106 @@
   with respect to the weights are calculated using the chain rule of calculus, and the weights are updated in the opposite direction of the gradient to minimize the loss in future predictions.
   We repeat this process iteratively until the model converges to a set of optimal weights that minimize the error.
 
+  To explain the backpropagation algorithm visually, we will consider the following operations on our NN:
 
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Picture1.png}
+    \setcaptioncitation{Source: Mohaisen, D. (2025). Lecture 6: Pitfalls in Word Vectors and Backpropagation
+    [PowerPoint slides]. University of Central Florida Computer Understanding of Natural Language: http://www.cs.ucf.edu/}
+    \caption{Example of a basic Neural Network operations for backpropagation}
+  \end{figure}
+
+  In our single node network, we have an input $x$, a weight $w$, a bias $b$, an activation function $f$, and $u$ to normalize the activated neuron to a score. First, we calculate the
+  weighted sum of the input and the weight, and add the bias term to get the preactived value $z$ as 
+
+  \begin{center}
+    $z = Wx + b$
+  \end{center}
+
+  Then, we pass the $z$ value to an activation function $f$ to introduce non-linearity to the model and get the activated value $h$ as
+
+  \begin{center}
+    $h = f(z)$
+  \end{center}
+
+  Finally, we normalize the activated value $h$ to a score $s$ as
+
+  \begin{center}
+    $s = u^Th$
+  \end{center}
+
+  Our goal is to minimize the error between the predicted score $s$ and the actual score $y$. To achieve this, we calculate the loss function $L$, assuming that we use the mean squared difference between
+  the predicted score and the actual score as the loss function. Then the loss function is calculated as
+
+  \begin{center}
+    $\displaystyle{L = loss(\hat{y}, y) = \frac{1}{2}(y - s)^2}$
+  \end{center}
+
+  To minimize the loss function, we need to calculate the gradient of the loss function with respect to the model parameters, which are weights $W$, the bias $b$, and $u$.
+  Backpropagation follows the chain rule, which helps compute derivatives layer by layer as seen from the Figure 1.
+
+  The first step is to calculate the gradient of the loss function with respect to the score $s$ as
+
+  \begin{center}
+    $\displaystyle{\pdv{L}{s} = (s - y)}$
+  \end{center}
+
+  To update the model parameter $u$, using the chain rule, we calculate the gradient of the loss function with respect to the score $s$ as
+
+  \begin{center}
+    $\displaystyle{\pdv{s}{u} =  h}$ since $s = u^Th$
+
+    $\displaystyle{\pdv{L}{u} = \pdv{L}{s} \cdot \pdv{s}{u} = (s - y) \cdot h}$
+  \end{center}
+
+  Then, the computed gradient is used in gradient descent to update weight $u$ as
+
+  \begin{center}
+    $\displaystyle{u^{new} = u^{old} - \eta \pdv{L}{u}}$
+  \end{center}
+
+  where $\eta$ is the learning rate that controls the size of the weight updates. The same process is repeated for the weights $W$ and the bias $b$ to minimize the loss function.
+
+  Then, we calculate the gradient of the loss function with respect to the activated value $h$ by assigning the downstream as the upstream gradient times the local gradient as
+
+  \begin{center}
+    $\displaystyle{\pdv{s}{h} =  u}$ since $s = u^Th$
+
+    $\displaystyle{\pdv{L}{h} = \pdv{L}{s} \cdot \pdv{s}{h} = (s - y) \cdot u}$
+  \end{center}
+
+  Next, we backpropagate the gradient to the preactivated value $z$ by calculating the gradient of the loss function with respect to the preactivated value $z$ as
+
+  \begin{center}
+    $\displaystyle{\pdv{h}{z} = f'(z)}$
+
+    $\displaystyle{\pdv{L}{z} = \pdv{L}{h} \cdot \pdv{h}{z} = (s - y) \cdot u \cdot f'(z)}$
+  \end{center}
+
+  Finally, as the last backpropagation, we calculate the gradient of the loss function with respect to the weights $W$ and the bias $b$ as
+
+  \begin{center}
+    $\displaystyle{\pdv{z}{W} = x}$ since $z = Wx + b$
+
+    $\displaystyle{\pdv{L}{W} = \pdv{L}{z} \cdot \pdv{z}{W} = (s - y) \cdot u \cdot f'(z) \cdot x}$
+
+    $\displaystyle{\pdv{z}{b} = 1}$ since $z = Wx + b$
+
+    $\displaystyle{\pdv{L}{b} = \pdv{L}{z} \cdot \pdv{z}{b} = (s - y) \cdot u \cdot f'(z) \cdot 1}$
+  \end{center}
+
+  Using those gradients, we can update the weights $W$ and the bias $b$ to minimize the loss function as follows:
+
+  \begin{center}
+    $\displaystyle{W^{new} = W^{old} - \eta \pdv{L}{W}}$
+
+    $\displaystyle{b^{new} = b^{old} - \eta \pdv{L}{b}}$
+  \end{center}
+
+  The key takeaway from the backpropagation algorithm is that it allows the model to learn the optimal weights that minimize the error between the predicted output and the actual output.
+  Mathematically, we need to go through the chain rule to calculate the gradients of the loss function with respect to the model parameters and update the weights in the opposite direction of the gradient.
+  Depending on the size of the model parameters, the backpropagation algorithm can be computationally expensive, but it is a powerful algorithm that enables the model to learn complex patterns in the data.
 
   \pagebreak
 
