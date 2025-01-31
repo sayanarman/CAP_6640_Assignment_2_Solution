@@ -4,6 +4,8 @@
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, xparse}
+\usepackage{derivative}
+\usepackage[bb=px]{mathalfa} 
 
 \begin{document}
 
@@ -142,7 +144,14 @@
 
   \item[Problem 4:] \hfill %Describe the backpropagation algorithm, both conceptually in your own words and mathematically.
   
-  Write Answer
+  Backpropagation is an algorithm used in ANNs to adjust the weights of the connections between neurons in the network to minimize the error between the predicted output 
+  and the actual output.
+  An input from the input layer is fed forward through the network, and the output is compared to the actual output to calculate the error. This mechnism is called forward pass.
+  The error is then propagated backward through the network to adjust the weights of the connections, which is called backpropagation. Mathematically, partial derivatives of the loss
+  with respect to the weights are calculated using the chain rule of calculus, and the weights are updated in the opposite direction of the gradient to minimize the loss in future predictions.
+  We repeat this process iteratively until the model converges to a set of optimal weights that minimize the error.
+
+
 
   \pagebreak
 
@@ -154,19 +163,132 @@
 
   \item[Problem 6:] \hfill %Describe the stochastic gradient descent algorithm, how it works, and the types of problems it aims to address within the context of the gradient descent algorithm.
   
-  Write Answer
+  Gradient descent (GD) algorithm is a basic optimization algorithm used to minimize the loss or cost function $J(\theta)$ of a model by adjusting the weights of the connections between neurons in the ANN.
+  It works by iteratively updating the weights in the opposite direction of the gradient of the loss function with respect to the weights. The update rule for the weights matrix is given by:
+
+  \begin{center}
+    $\displaystyle{\theta^{new} = \theta^{old} - \eta \nabla_{\theta} J(\theta)}$
+  \end{center}
+  
+  where $\theta$ represents the weights of the model, $\eta$ is the learning rate that controls the size of the weight updates, and $\nabla J(\theta)$ is the gradient of the 
+  loss function with respect to the weights.
+
+  However, in the context of NLP, the training data can be very large, and computing the gradient over the entire corpus can be computationally expensive. Furthermore, 
+  in the case of large datasets, the waiting time to update the weights can be very long. To address these issues, stochastic gradient descent (SGD) algorithm is used.
+
+  SGD is a variant of the GD algorithm that updates the weights based on a single training example windows or a mini-batch of examples, rather than the entire dataset. This makes it 
+  much faster and well-suited for large-scale problems. The update rule for the weights using SGD is given by:
+
+  \begin{center}
+    $\displaystyle{\theta^{new} = \theta^{old} - \eta \nabla_{\theta} J(\theta; x_i, y_i)}$
+  \end{center}
+
+  where $(x_i, y_i)$ is a training example, and $\nabla_{\theta} J(\theta; x_i, y_i)$ is the gradient of the loss function with respect to the weights for the training example.
+  The weights are updated for each training example or mini-batch of examples, which speeds up the training process and makes it more efficient. So the main advantage of SGD 
+  is that it is computationally efficient and can handle large datasets.
+
+  Like in GD, in SGD, we select random samples and update model parameters until the model converges to a stopping condition such as local minimum or small gradient updates.
 
   \pagebreak
 
   \item[Problem 7:] \hfill %Explain the skip-gram model with negative sampling and how it operates.
   
-  Write Answer
+  Skip-gram model is a type of word embedding model that learns distributed representations of word embeddings in a continuous vector space based on their spatial proximity 
+  to other words. The skip-gram model tries to predict the surrounding context words $w_{context}$ given a target word $w_{target}$, by maximizing the probability of observing
+  the context words given the target word based on their co-occurrences in the corpus. 
+
+  For example, in the sentence "Apple released iOS 18.3 for iPhone", assuming that the target word is "iOS", the skip-gram mode tries to predict nearby context words like 
+  "Apple", "released", and "iPhone".
+
+  In general, we calculate the probability of observing the context words given the target word as
+
+  \begin{center}
+    $\displaystyle{P(w_{context} | w_{target}) = \frac{\exp({u_{w_{context}}^T v_{w_{target}}})}{\sum_{w \in V} \exp({u_{w}^T v_{w_{target}}})}}$
+  \end{center}
+
+  where $u_{w_{context}}$ and $v_{w_{target}}$ are the word embeddings or vectors for the context word and target word, respectively, and $V$ is the vocabulary of words in the corpus.
+
+  However, the pitfall of the skip-gram model is the normalization done at the denominator over the entire vocabulary, which can be computationally expensive and a slow process 
+  for a large corpus. To address this issue, we make the skip-gram efficient by introducing skip-gram model with negative sampling.
+
+  The skip-gram model with negative sampling is an extension of the skip-gram model that addresses the computational inefficiency of the original model. Instead of calculating
+  the probability of observing the context words given the target word over the entire vocabulary, negative sampling only updates a few words per training step instead of the 
+  entire vocabulary and approximates the probability by sampling a small number of negative words or random noise, namely the words that are not in the context, and comparing 
+  them to the true context words. For a given target word $w_{target}$, the model is trained to maximize the probability of observing the true context words, and futhermore 
+  minimize the probability of observing the sampled $k$ negative words, which are the random words that do not appear in the context.
+
+  The new and additional objective function for the skip-gram model with negative sampling is
+
+  \begin{center}
+    $\displaystyle{L(\theta) = \log \sigma(u_{w_{context}}^T v_{w_{target}}) + \sum_{i=1}^{k}{\mathbb{E}_{w_i \sim P(w)} [\log \sigma(-u_{w_{i}}^T v_{w_{target}})]}}$
+  \end{center}
+
+  where $\sigma$ is the sigmoid function, $u_{w_{context}}$ and $v_{w_{target}}$ are the word embeddings for the context word and target word, respectively, $P(w)$ is a noise 
+  distribution, and $k$ is the number of negative samples.
+
+  With the introduction of negative sampling, the skip-gram model becomes more computationally efficient since instead of summing over millions of words, 
+  we sum over just a few negative samples. In addition, the model can learn more accurate word embeddings as the model learns better vector representations by pushing correct 
+  pairs closer while separating unrelated words.
 
   \pagebreak
 
   \item[Problem 8:] \hfill %Discuss the two approaches for evaluating word embeddings (vectors), namely intrinsic and extrinsic evaluations, along with their respective advantages and disadvantages.
   
-  Write Answer
+  Dense word representations, or word embeddings, are vector representations of words in a continuous vector space that capture the semantic and syntactic relationships between 
+  words.
+  Evaluating the quality of word embeddings is crucial to ensure that the embeddings capture meaningful relationships between words and can be used effectively in NLP tasks.
+
+  There are two main approaches for evaluating word embeddings:
+
+  \begin{enumerate}
+    \item \textbf{Intrinsic Evaluation}: Intrinsic evaluation involves evaluating the quality of word embeddings based on their performance on specific linguistic tasks such as
+    
+    \begin{itemize}
+      \item Qualitative analysis, which involves visually inspecting the word embeddings to understand the relationships between words.
+      \item Clustering, which groups similar words together based on their word embeddings and evaluates the quality of the clusters.
+      \item Word analogy, which evaluates the ability of word embeddings to capture semantic relationships between words by solving analogy tasks on large word analogy datasets.
+      \item Word similarity, which measures the similarity between word embeddings based on their cosine similarity or Euclidean distance, and compares it to human judgments of word similarity.
+    \end{itemize}
+
+    Advantages of intrinsic evaluation include:
+
+    \begin{itemize}
+      \item Direct evaluation of the quality of word embeddings regardless of the NLP task.
+      \item Does not require training a model on a downstream task, hence it is fast and computationally cheap to perform.
+    \end{itemize}
+
+    Disadvantages of intrinsic evaluation include:
+
+    \begin{itemize}
+      \item Limited scope of evaluation, as it only evaluates the quality of word embeddings on specific linguistic tasks. Hence, may not reflect the performance of word 
+      embeddings on real-world NLP tasks.
+    \end{itemize}
+
+  \item \textbf{Extrinsic Evaluation}: Extrinsic evaluation involves evaluating the quality of word embeddings based on their performance on downstream NLP tasks such as
+  
+  \begin{itemize}
+    \item Question answering, which evaluates the ability of word embeddings to answer questions correctly based on a given context.
+    \item Machine translation, which evaluates the quality of word embeddings in translating valid text from one language to another.
+    \item Named entity recognition (NER), which evaluates the ability of word embeddings to identify named entities in text.
+    \item Text classification, which evaluates the quality of word embeddings as inputs in classifying text into predefined categories.
+  \end{itemize}
+
+  Advantages of extrinsic evaluation include:
+
+  \begin{itemize}
+    \item Evaluates the quality of word embeddings based on their performance on real-world NLP tasks, providing a more practical assessment of the embeddings.
+    \item Evaluates the ability of word embeddings to generalize to unseen data and tasks.
+  \end{itemize}
+
+  Disadvantages of extrinsic evaluation include:
+
+  \begin{itemize}
+    \item Requires training a model on a real-NLP task, which can be computationally expensive and time-consuming.
+    \item Performance on a downstream task may be influenced by factors other than the quality of word embeddings, such as the architecture of the model or the size of the training data.
+    \item Slower to test different word embeddings since it requires retraining the model on each new set of embeddings.
+  \end{itemize}
+
+  \end{enumerate}
 
   \pagebreak
 
@@ -178,7 +300,28 @@
 
   \item[Problem 10:] \hfill %Explain the max-margin loss function in the context of binary classification for Named Entity Recognition (NER) location identification.
   
-  Write Answer
+  Named Entity Recognition (NER) involves classifying words into entity types, in which one of those types is LOCATION (LOC). In a binary classification setup for 
+  location identification, we try to assign a binary label to each word in the text, indicating whether it is a location or not. To be able to classify the words as location
+  or not, we try to learn a neural activation function to compute the window's score and based on this score, we do the classification. However, the model can make mistakes
+  in the classification, and the max-margin loss function is used to penalize these corrupted windows scoress $S_c$ and encourage the model to calculate higher scores for the 
+  true windows $S$. The max-margin loss ensures that correct classifications $S$ have a margin of at least 1 from the decision boundary $S_c$. The loss function can be defined as:
+
+  \begin{center}
+    $\displaystyle{L = \max(0, 1 - S + S_c)}$
+  \end{center}
+  
+  where $N$ is the number of windows in the training data, $S$ is the score of the true window, and $S_c$ is the score of the corrupted window. To minimize the loss, the model
+  needs to update the weights to increase the score of the true window and decrease the score of the corrupted window. Optimization of the model requires gradient of the loss 
+  function with respect to the weights and update the weights using the backpropagation algorithm. Instead of computing gradients over the entire dataset, we can use stochastic
+  gradient descent to update the weights based on a single training example or a mini-batch of examples. For each training step with a sample $(x_i, y_i)$, we update the weights
+  as
+
+  \begin{center}
+    $\displaystyle{W = W - \eta \pdv{L}{W}}$
+  \end{center}
+
+  where $\eta$ is the learning rate. Thus, for each training word, we only update the weights if the loss is greater than 0, which encourages the model to learn the correct 
+  classification. This approach can speed up the training process and make the model more efficient in learning the correct classification of the windows. 
 
   \pagebreak
   
