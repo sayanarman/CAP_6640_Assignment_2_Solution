@@ -294,7 +294,52 @@
 
   \item[Problem 9:] \hfill %Define word sense, its purpose, and how it is used in practical applications.
   
-  Write Answer
+  Word sense refers to the different meanings or interpretations of a word based on the context in which it appears. Words can have multiple senses or meanings, and the correct
+  interpretation of a word depends on the context in which it is used. To give an instance, the word "runner" can refer to a person who runs as an athlete like in the sentence 
+  "Sonic was a fast runner.", or a person who smuggles goods like in the sentence "The drug runner was arrested at the border.". We treat each of these distinct meanings as a 
+  separate word sense.
+
+  There are several cases in which word sense helps in NLP tasks. As seen from the above, distinguishing between different meanings of a word in a given context helps us to 
+  disambiguate the meaning of the word and improve the performance of NLP tasks, since this a common case in every language. This helps for an improved NLP understanding which in
+  turn helps for more refined information retrieval.
+
+  To achieve this, it is important to use different contextual word embeddings for each word sense to capture the distinct meanings of the word based on the context, unlike the static 
+  vector approach from Word2Vec technique which might result distorted. Nowadays, models like BERT can eliminate these ambiguities on the shot.
+
+  In practical applications, word sense is used in various practical NLP applications such as:
+
+  \begin{enumerate}
+    \item \textbf{Machine Translation}: In machine translation, word sense ensures to translate words accurately based on their context and meaning.
+    
+    \begin{itemize}
+      \item "Ne güzel güldün." in Turkish can be translated as "You laughed so beautifully." or "You smiled so beautifully." based on the context.
+      \item "Ne güzel bir güldü." in Turkish can be translated as "What a beautiful rose." based on the context.
+    \end{itemize}
+    
+    \item \textbf{Information Retrieval}: In information retrieval, word sense improves the accuracy of search results.
+  
+    \begin{itemize}
+      \item Searching for "apple" can return results related to the fruit or the technology company based on the context.
+    \end{itemize}
+    
+    \item \textbf{Question Answering}: In question answering, word sense helps to understand the meaning of the question and provide accurate answers.
+    
+    \begin{itemize}
+      \item A medical chatbot must differentiate between "nerve" (the optic fiber for transmitting pulses) vs. "nerve" (mental calmness).
+    \end{itemize}
+    
+    \item \textbf{Sentiment Analysis}: In sentiment analysis, word sense helps to identify the sentiment of a word based on its context and meaning.
+    
+    \begin{itemize}
+      \item "The sudden bang scared everyone in the room.", where "bang" refers to a loud noise, which is a negative (fear, surprise) sentiment.
+      \item "The party started with a bang.", where "bang" refers to an excitement or success, which is a positive (enthusiasm) sentiment.
+    \end{itemize}
+
+  \end{enumerate}
+
+  Closely related with word sense, global context, which refers to the broader textual information that helps determine the meaning of a word, is also important such that
+  if the immediate context is unclear, the overall topic or document meaning can guide sense selection. This is actually the main idea behind the BERT model, which improves
+  the coherence both in NLP models and tasks.
 
   \pagebreak
 
