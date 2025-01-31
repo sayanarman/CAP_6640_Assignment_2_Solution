@@ -476,7 +476,7 @@
   \item[Problem 10:] \hfill %Explain the max-margin loss function in the context of binary classification for Named Entity Recognition (NER) location identification.
   
   Named Entity Recognition (NER) involves classifying words into entity types, in which one of those types is LOCATION (LOC). In a binary classification setup for 
-  location identification, we try to assign a binary label to each word in the text, indicating whether it is a location or not. To be able to classify the words as location
+  location identification for instance, we try to assign a binary label to each word in the text, indicating whether it is a location or not. To be able to classify the words as location
   or not, we try to learn a neural activation function to compute the window's score and based on this score, we do the classification. However, the model can make mistakes
   in the classification, and the max-margin loss function is used to penalize these corrupted windows scoress $S_c$ and encourage the model to calculate higher scores for the 
   true windows $S$. The max-margin loss ensures that correct classifications $S$ have a margin of at least 1 from the decision boundary $S_c$. The loss function can be defined as:
